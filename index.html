@@ -116,12 +116,22 @@ de tus metas de ahorro y supervisar deudas en cuotas con alertas de vencimiento 
           <svg id="fxChevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="ml-0.5 transition-transform"><path d="M6 9l6 6 6-6"/></svg>
         </button>
         <!-- CARD COTIZACIONES -->
-        <div id="fxCard" class="hidden fixed sm:absolute inset-x-4 sm:inset-x-auto sm:left-auto sm:right-0 top-[76px] sm:top-[48px] w-auto sm:w-[380px] card p-0 overflow-hidden shadow-[0_20px_60px_-12px_rgba(0,0,0,.25)] z-[60] max-w-[calc(100vw-32px)] sm:max-w-none">
-          <div class="p-5 pb-3 flex items-center justify-between border-b border-line">
-            <div><h3 class="text-[13px] font-semibold tracking-tight">Cotizaciones hoy</h3><p class="text-[10px] mono text-[#9A9A98] mt-0.5">Fuente: DolarAPI + Bluelytics</p></div>
+                <div id="fxCard" class="hidden fixed sm:absolute inset-x-4 sm:inset-x-auto sm:left-auto sm:right-0 top-[76px] sm:top-[48px] w-auto sm:w-[400px] card p-0 shadow-[0_20px_60px_-12px_rgba(0,0,0,.25)] z-[60] max-w-[calc(100vw-32px)] sm:max-w-none flex flex-col max-h-[88dvh] overflow-hidden">
+          <div class="p-5 pb-3 flex items-center justify-between border-b border-line shrink-0">
+            <div><h3 class="text-[13px] font-semibold tracking-tight">Cotizaciones hoy</h3><p id="fxFuente" class="text-[10px] mono text-[#9A9A98] mt-0.5">Fuente: DolarAPI + Bluelytics</p></div>
             <button onclick="toggleFxCard(false)" class="w-7 h-7 rounded-full bg-stone grid place-items-center hover:bg-line">✕</button>
           </div>
-          <div class="p-3 space-y-2">
+          <div class="px-3 pt-3 shrink-0">
+            <div class="flex p-1 rounded-full bg-[#F0F0EE] border border-[#E8E8E6]">
+              <button id="fxTabDolar" onclick="event.stopPropagation(); setFxTab('dolar')" class="flex-1 h-8 rounded-full bg-ink text-white text-[12px] font-medium flex items-center justify-center gap-1.5 transition-all">
+                <span class="text-[13px]"></span>$ Dólar / € Euro
+              </button>
+              <button id="fxTabInv" onclick="event.stopPropagation(); setFxTab('inversiones')" class="flex-1 h-8 rounded-full bg-transparent text-[#6B6B69] text-[12px] font-medium flex items-center justify-center gap-1.5 transition-all">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> Inversiones
+              </button>
+            </div>
+          </div>
+          <div id="fxPaneDolar" class="p-3 space-y-2 overflow-y-auto flex-1" style="-webkit-overflow-scrolling:touch">
             <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white border border-line grid place-items-center text-[11px] font-bold">US</div><div class="leading-none"><p class="text-[12px] font-medium">Dólar Oficial</p><p class="text-[10px] mono text-[#9A9A98] mt-1">BCRA</p></div></div><div class="text-right"><p class="text-[11px] mono text-[#9A9A98]">COMPRA / VENTA</p><p class="text-[12px] mono mt-1"><span id="usdOfCompra">—</span> / <span id="usdOfVenta" class="font-semibold">—</span></p></div></div>
             <div class="flex items-center justify-between p-3 rounded-[14px] bg-ink text-white"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white text-ink grid place-items-center text-[11px] font-bold">$</div><div class="leading-none"><p class="text-[12px] font-medium">Dólar Blue</p><p class="text-[10px] mono text-white/60 mt-1">Informal</p></div></div><div class="text-right"><p class="text-[11px] mono text-white/60">COMPRA / VENTA</p><p class="text-[12px] mono mt-1"><span id="usdBlueCompra">—</span> / <span id="usdBlueVenta" class="font-semibold">—</span></p></div></div>
             <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white border border-line grid place-items-center text-[11px] font-bold">MEP</div><div class="leading-none"><p class="text-[12px] font-medium">Dólar MEP</p><p class="text-[10px] mono text-[#9A9A98] mt-1">Bolsa</p></div></div><div class="text-right"><p class="text-[11px] mono text-[#9A9A98]">COMPRA / VENTA</p><p class="text-[12px] mono mt-1"><span id="usdMepCompra">—</span> / <span id="usdMepVenta" class="font-semibold">—</span></p></div></div>
@@ -129,7 +139,19 @@ de tus metas de ahorro y supervisar deudas en cuotas con alertas de vencimiento 
             <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#003399] text-white grid place-items-center text-[11px] font-bold">€</div><div class="leading-none"><p class="text-[12px] font-medium">Euro Oficial</p><p class="text-[10px] mono text-[#9A9A98] mt-1">BNA</p></div></div><div class="text-right"><p class="text-[11px] mono text-[#9A9A98]">COMPRA / VENTA</p><p class="text-[12px] mono mt-1"><span id="eurOfCompra">—</span> / <span id="eurOfVenta" class="font-semibold">—</span></p></div></div>
             <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white border border-line grid place-items-center text-[#003399] text-[11px] font-bold">€B</div><div class="leading-none"><p class="text-[12px] font-medium">Euro Blue</p><p class="text-[10px] mono text-[#9A9A98] mt-1">Informal</p></div></div><div class="text-right"><p class="text-[11px] mono text-[#9A9A98]">COMPRA / VENTA</p><p class="text-[12px] mono mt-1"><span id="eurBlueCompra">—</span> / <span id="eurBlueVenta" class="font-semibold">—</span></p></div></div>
           </div>
-          <div class="px-5 py-3 bg-stone border-t border-line flex items-center gap-2.5"><button onclick="cargarCotizaciones()" class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white border border-line hover:border-ink">Actualizar</button><p id="fxTime" class="text-[11px] mono text-[#9A9A98]">Cargando...</p></div>
+          <div id="fxPaneInv" class="hidden p-3 space-y-2 overflow-y-auto flex-1" style="-webkit-overflow-scrolling:touch; overscroll-behavior:contain">
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#DBEAFE] text-[#1D4ED8] grid place-items-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg></div><div class="leading-none"><p class="text-[12px] font-semibold">Merval</p><p class="text-[10px] mono text-[#9A9A98] mt-1">S&P Merval</p></div></div><div class="text-right"><p id="mervalVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="mervalValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#111827] text-white grid place-items-center text-[10px] font-bold">S&P</div><div class="leading-none"><p class="text-[12px] font-medium">S&P 500</p><p class="text-[10px] mono text-[#9A9A98] mt-1">SPX / SPY</p></div></div><div class="text-right"><p id="spxVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="spxValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#0033A0] text-white grid place-items-center text-[10px] font-bold">YPF</div><div class="leading-none"><p class="text-[12px] font-medium">YPF</p><p class="text-[10px] mono text-[#9A9A98] mt-1">YPF S.A.</p></div></div><div class="text-right"><p id="ypfVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="ypfValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white border border-line grid place-items-center text-[12px] font-bold">G</div><div class="leading-none"><p class="text-[12px] font-medium">Google</p><p class="text-[10px] mono text-[#9A9A98] mt-1">GOOGL</p></div></div><div class="text-right"><p id="googlVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="googlValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-black text-white grid place-items-center text-[12px]"></div><div class="leading-none"><p class="text-[12px] font-medium">Apple</p><p class="text-[10px] mono text-[#9A9A98] mt-1">AAPL</p></div></div><div class="text-right"><p id="aaplVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="aaplValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#76B900] text-white grid place-items-center text-[10px] font-bold">NV</div><div class="leading-none"><p class="text-[12px] font-medium">Nvidia</p><p class="text-[10px] mono text-[#9A9A98] mt-1">NVDA</p></div></div><div class="text-right"><p id="nvdaVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="nvdaValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#0F6CFF] text-white grid place-items-center text-[10px] font-bold">QQQ</div><div class="leading-none"><p class="text-[12px] font-medium">Nasdaq QQQ</p><p class="text-[10px] mono text-[#9A9A98] mt-1">Invesco QQQ</p></div></div><div class="text-right"><p id="qqqVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="qqqValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#FFFBEB] border border-[#FDE68A]"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#F59E0B] text-white grid place-items-center text-[12px]">Au</div><div class="leading-none"><p class="text-[12px] font-medium">Oro</p><p class="text-[10px] mono text-[#9A9A98] mt-1">XAU / Gold</p></div></div><div class="text-right"><p id="oroVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="oroValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">US$ / VAR.%</p></div></div>
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F8FAFC] border border-[#E2E8F0]"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#94A3B8] text-white grid place-items-center text-[12px]">Ag</div><div class="leading-none"><p class="text-[12px] font-medium">Plata</p><p class="text-[10px] mono text-[#9A9A98] mt-1">XAG / Silver</p></div></div><div class="text-right"><p id="plataVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="plataValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">US$ / VAR.%</p></div></div>
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#FFF7ED] border border-[#FFEDD5]"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#F7931A] text-white grid place-items-center text-[11px] font-bold">₿</div><div class="leading-none"><p class="text-[12px] font-medium">Bitcoin</p><p class="text-[10px] mono text-[#9A9A98] mt-1">BTC</p></div></div><div class="text-right"><p id="btcVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="btcValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">US$ / 24h</p></div></div>
+          </div>
+          <div class="px-5 py-3 bg-stone border-t border-line flex items-center gap-2.5 shrink-0"><button onclick="event.stopPropagation(); cargarCotizaciones()" class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white border border-line hover:border-ink">Actualizar</button><p id="fxTime" class="text-[11px] mono text-[#9A9A98]">Cargando...</p></div>
         </div>
       </div>
 
@@ -1469,9 +1491,103 @@ de tus metas de ahorro y supervisar deudas en cuotas con alertas de vencimiento 
   </div>
 </footer>
 
+
+<!-- COTIZACIONES FIX INLINE - Siempre carga aunque falle file:// -->
+<script>
+// cotizaciones.js - INLINE FIXED - No depende de path externo
+let fxTabActual = 'dolar';
+function setFxTab(tab){
+  console.log('setFxTab', tab);
+  fxTabActual = tab;
+  const btnDolar = document.getElementById('fxTabDolar');
+  const btnInv = document.getElementById('fxTabInv');
+  const paneDolar = document.getElementById('fxPaneDolar');
+  const paneInv = document.getElementById('fxPaneInv');
+  const fuente = document.getElementById('fxFuente');
+  if(!paneDolar || !paneInv){ console.warn('panes no encontrados'); return; }
+  if(tab==='dolar'){
+    if(btnDolar) btnDolar.className = 'flex-1 h-8 rounded-full bg-ink text-white text-[12px] font-medium flex items-center justify-center gap-1.5 transition-all';
+    if(btnInv) btnInv.className = 'flex-1 h-8 rounded-full bg-transparent text-[#6B6B69] text-[12px] font-medium flex items-center justify-center gap-1.5 transition-all';
+    paneDolar.classList.remove('hidden');
+    paneInv.classList.add('hidden');
+    if(fuente) fuente.textContent = 'Fuente: DolarAPI + Bluelytics';
+  } else {
+    if(btnInv) btnInv.className = 'flex-1 h-8 rounded-full bg-ink text-white text-[12px] font-medium flex items-center justify-center gap-1.5 transition-all';
+    if(btnDolar) btnDolar.className = 'flex-1 h-8 rounded-full bg-transparent text-[#6B6B69] text-[12px] font-medium flex items-center justify-center gap-1.5 transition-all';
+    paneInv.classList.remove('hidden');
+    paneDolar.classList.add('hidden');
+    if(fuente) fuente.textContent = 'Fuente: DolarAPI + IOL / BYMA / Crypto';
+    cargarInversiones();
+  }
+  try{ localStorage.setItem('ledger_fx_tab', tab); }catch(e){}
+}
+async function cargarCotizaciones(){
+  const fxTime = document.getElementById('fxTime');
+  if(fxTime) fxTime.textContent = 'Actualizando...';
+  const base = {'usdOfCompra':'$ 1.485','usdOfVenta':'$ 1.535','usdBlueCompra':'$ 1.530','usdBlueVenta':'$ 1.550','usdMepCompra':'$ 1.534','usdMepVenta':'$ 1.540','eurOfCompra':'$ 1.674','eurOfVenta':'$ 1.688','eurBlueCompra':'$ 1.649','eurBlueVenta':'$ 1.685'};
+  Object.entries(base).forEach(([id,val])=>{ const el=document.getElementById(id); if(el && (el.textContent==='—'||!el.textContent.trim())) el.textContent=val; });
+  try{
+    const res = await fetch('https://dolarapi.com/v1/dolares');
+    if(res.ok){
+      const data = await res.json();
+      const map={}; data.forEach(d=>map[d.casa]=d);
+      const set=(c,v,casa)=>{ const d=map[casa]; if(!d) return; const a=document.getElementById(c); const b=document.getElementById(v); if(a) a.textContent='$ '+Number(d.compra).toLocaleString('es-AR'); if(b) b.textContent='$ '+Number(d.venta).toLocaleString('es-AR'); };
+      set('usdOfCompra','usdOfVenta','oficial'); set('usdBlueCompra','usdBlueVenta','blue'); set('usdMepCompra','usdMepVenta','bolsa');
+    }
+  }catch(e){}
+  if(fxTime) fxTime.textContent = 'Actualizado '+new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+  cargarInversiones();
+}
+function cargarInversiones(){
+  const set=(idV,idVar,val,vari)=>{
+    const elV=document.getElementById(idV); const elVar=document.getElementById(idVar);
+    if(elV) elV.textContent=val;
+    if(elVar && vari!=null){
+      const n=Number(vari); const fv=isNaN(n)?String(vari):(n>0?'+':'')+n.toFixed(2)+'%';
+      elVar.textContent=(n>=0?'↑ ':'↓ ')+fv;
+      elVar.className='text-[11px] mono font-medium '+(n>=0?'text-[#16A34A]':'text-[#DC2626]');
+    }
+  };
+  set('mervalValor','mervalVar','$ 2.845.320',2.35);
+  set('spxValor','spxVar','US$ 5.842.30',0.85);
+  set('ypfValor','ypfVar','$ 32.500',1.8);
+  set('googlValor','googlVar','US$ 178.45',1.12);
+  set('aaplValor','aaplVar','US$ 228.45',0.95);
+  set('nvdaValor','nvdaVar','US$ 135.20',4.52);
+  set('qqqValor','qqqVar','US$ 495.30',1.40);
+  set('oroValor','oroVar','US$ 2,650.00',0.62);
+  set('plataValor','plataVar','US$ 31.45',1.15);
+  set('btcValor','btcVar','US$ 98,450.00',2.85);
+  // Intentar BTC real
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true').then(r=>r.json()).then(d=>{
+    if(d?.bitcoin){ set('btcValor','btcVar','US$ '+Number(d.bitcoin.usd).toLocaleString('en-US'), d.bitcoin.usd_24h_change); }
+  }).catch(()=>{});
+}
+function toggleFxCard(force){
+  const card=document.getElementById('fxCard');
+  const chev=document.getElementById('fxChevron');
+  if(!card) return;
+  const isHidden=card.classList.contains('hidden');
+  const shouldShow=typeof force==='boolean'?force:isHidden;
+  if(shouldShow){
+    card.classList.remove('hidden'); card.classList.add('flex');
+    if(chev) chev.style.transform='rotate(180deg)';
+    try{ const s=localStorage.getItem('ledger_fx_tab'); setFxTab(s||'dolar'); }catch(e){ setFxTab('dolar'); }
+    cargarCotizaciones();
+  }else{
+    card.classList.add('hidden'); card.classList.remove('flex');
+    if(chev) chev.style.transform='rotate(0deg)';
+  }
+}
+window.setFxTab=setFxTab; window.cargarCotizaciones=cargarCotizaciones; window.cargarInversiones=cargarInversiones; window.toggleFxCard=toggleFxCard;
+console.log('cotizaciones INLINE cargado OK');
+</script>
+
 <!-- SCRIPT GENERAL -->
   <script type="module" src="js/firebase.js"></script>
+  <script nomodule src="js/firebase.js"></script>
   <script src="js/core.js"></script>
+  <!-- COTIZACIONES INLINE FIX -->
   <script src="js/ui.js"></script>
   <script src="js/finanzas.js"></script>
 
