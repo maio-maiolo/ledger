@@ -263,10 +263,15 @@ html, body{ overflow-x:hidden !important; max-width:100vw; }
 #fxCard{
   overscroll-behavior: contain;
   touch-action: pan-y;
-  display: flex !important;
   flex-direction: column !important;
   max-height: 88dvh !important;
   overflow: hidden !important;
+}
+#fxCard:not(.hidden){
+  display: flex !important;
+}
+#fxCard.hidden{
+  display: none !important;
 }
 #fxCard #fxPaneDolar,
 #fxCard #fxPaneInv{
