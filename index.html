@@ -103,7 +103,7 @@ de tus metas de ahorro y supervisar deudas en cuotas con alertas de vencimiento 
         <button onclick="abrirModalAhorro()" title="Ahorro" class="w-8 h-8 rounded-[10px] bg-transparent hover:bg-black/5 text-ink grid place-items-center transition-colors">
           <img src="img/ahorro.webp" alt="Ahorro" class="w-[18px] h-[18px] object-contain" onerror="this.src='img/ahorro.webp'" style="opacity:0.85; filter: brightness(0);">
         </button>
-        <button onclick="abrirModalDeudas()" title="Deudas" class="flex items-center gap-2 p-2.5 rounded-xl bg-[#F6F6F5] text- font-medium">
+        <button onclick="abrirModalDeudas()" title="Deudas" class="flex items-center gap-2 p-2.5 rounded-xl bg-[#F6F6F5] text-[12px] font-medium">
        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" stroke-opacity="0.85" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 9.5h20"/><path d="M6 14.5h4"/><path d="M12.5 14.5h2"/></svg></button>
       </div>
@@ -139,17 +139,76 @@ de tus metas de ahorro y supervisar deudas en cuotas con alertas de vencimiento 
             <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#003399] text-white grid place-items-center text-[11px] font-bold">€</div><div class="leading-none"><p class="text-[12px] font-medium">Euro Oficial</p><p class="text-[10px] mono text-[#9A9A98] mt-1">BNA</p></div></div><div class="text-right"><p class="text-[11px] mono text-[#9A9A98]">COMPRA / VENTA</p><p class="text-[12px] mono mt-1"><span id="eurOfCompra">—</span> / <span id="eurOfVenta" class="font-semibold">—</span></p></div></div>
             <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white border border-line grid place-items-center text-[#003399] text-[11px] font-bold">€B</div><div class="leading-none"><p class="text-[12px] font-medium">Euro Blue</p><p class="text-[10px] mono text-[#9A9A98] mt-1">Informal</p></div></div><div class="text-right"><p class="text-[11px] mono text-[#9A9A98]">COMPRA / VENTA</p><p class="text-[12px] mono mt-1"><span id="eurBlueCompra">—</span> / <span id="eurBlueVenta" class="font-semibold">—</span></p></div></div>
           </div>
-          <div id="fxPaneInv" class="hidden p-3 space-y-2 overflow-y-auto flex-1" style="-webkit-overflow-scrolling:touch; overscroll-behavior:contain">
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#DBEAFE] text-[#1D4ED8] grid place-items-center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/></svg></div><div class="leading-none"><p class="text-[12px] font-semibold">Merval</p><p class="text-[10px] mono text-[#9A9A98] mt-1">S&P Merval</p></div></div><div class="text-right"><p id="mervalVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="mervalValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#111827] text-white grid place-items-center text-[10px] font-bold">S&P</div><div class="leading-none"><p class="text-[12px] font-medium">S&P 500</p><p class="text-[10px] mono text-[#9A9A98] mt-1">SPX / SPY</p></div></div><div class="text-right"><p id="spxVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="spxValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#0033A0] text-white grid place-items-center text-[10px] font-bold">YPF</div><div class="leading-none"><p class="text-[12px] font-medium">YPF</p><p class="text-[10px] mono text-[#9A9A98] mt-1">YPF S.A.</p></div></div><div class="text-right"><p id="ypfVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="ypfValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-white border border-line grid place-items-center text-[12px] font-bold">G</div><div class="leading-none"><p class="text-[12px] font-medium">Google</p><p class="text-[10px] mono text-[#9A9A98] mt-1">GOOGL</p></div></div><div class="text-right"><p id="googlVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="googlValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-black text-white grid place-items-center text-[12px]"></div><div class="leading-none"><p class="text-[12px] font-medium">Apple</p><p class="text-[10px] mono text-[#9A9A98] mt-1">AAPL</p></div></div><div class="text-right"><p id="aaplVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="aaplValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#76B900] text-white grid place-items-center text-[10px] font-bold">NV</div><div class="leading-none"><p class="text-[12px] font-medium">Nvidia</p><p class="text-[10px] mono text-[#9A9A98] mt-1">NVDA</p></div></div><div class="text-right"><p id="nvdaVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="nvdaValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-stone"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#0F6CFF] text-white grid place-items-center text-[10px] font-bold">QQQ</div><div class="leading-none"><p class="text-[12px] font-medium">Nasdaq QQQ</p><p class="text-[10px] mono text-[#9A9A98] mt-1">Invesco QQQ</p></div></div><div class="text-right"><p id="qqqVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="qqqValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div></div>
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#FFFBEB] border border-[#FDE68A]"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#F59E0B] text-white grid place-items-center text-[12px]">Au</div><div class="leading-none"><p class="text-[12px] font-medium">Oro</p><p class="text-[10px] mono text-[#9A9A98] mt-1">XAU / Gold</p></div></div><div class="text-right"><p id="oroVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="oroValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">US$ / VAR.%</p></div></div>
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F8FAFC] border border-[#E2E8F0]"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#94A3B8] text-white grid place-items-center text-[12px]">Ag</div><div class="leading-none"><p class="text-[12px] font-medium">Plata</p><p class="text-[10px] mono text-[#9A9A98] mt-1">XAG / Silver</p></div></div><div class="text-right"><p id="plataVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="plataValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">US$ / VAR.%</p></div></div>
-            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#FFF7ED] border border-[#FFEDD5]"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#F7931A] text-white grid place-items-center text-[11px] font-bold">₿</div><div class="leading-none"><p class="text-[12px] font-medium">Bitcoin</p><p class="text-[10px] mono text-[#9A9A98] mt-1">BTC</p></div></div><div class="text-right"><p id="btcVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="btcValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">US$ / 24h</p></div></div>
+                    <div id="fxPaneInv" class="hidden p-3 space-y-2 overflow-y-auto flex-1" style="-webkit-overflow-scrolling:touch; overscroll-behavior:contain">
+            <!-- S&P 500 -->
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-[#0A0A0A] text-white grid place-items-center text-[10px] font-bold">S&P</div>
+                <div class="leading-none"><p class="text-[12px] font-medium">S&P 500</p><p class="text-[10px] mono text-[#9A9A98] mt-1">SPX / SPY</p></div>
+              </div>
+              <div class="text-right"><p id="spxVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="spxValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div>
+            </div>
+            <!-- YPF -->
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-[#0066CC] text-white grid place-items-center text-[10px] font-bold">YPF</div>
+                <div class="leading-none"><p class="text-[12px] font-medium">YPF</p><p class="text-[10px] mono text-[#9A9A98] mt-1">YPF S.A.</p></div>
+              </div>
+              <div class="text-right"><p id="ypfVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="ypfValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div>
+            </div>
+            <!-- GOOGLE -->
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-white border border-line grid place-items-center overflow-hidden p-[5px]">
+                  <img src="https://cdn.simpleicons.org/google" alt="Google" class="w-full h-full object-contain">
+                </div>
+                <div class="leading-none"><p class="text-[12px] font-medium">Google</p><p class="text-[10px] mono text-[#9A9A98] mt-1">GOOGL</p></div>
+              </div>
+              <div class="text-right"><p id="googlVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="googlValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div>
+            </div>
+            <!-- APPLE -->
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-black grid place-items-center overflow-hidden p-[6px]">
+                  <img src="https://cdn.simpleicons.org/apple/white" alt="Apple" class="w-full h-full object-contain">
+                </div>
+                <div class="leading-none"><p class="text-[12px] font-medium">Apple</p><p class="text-[10px] mono text-[#9A9A98] mt-1">AAPL</p></div>
+              </div>
+              <div class="text-right"><p id="aaplVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="aaplValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div>
+            </div>
+            <!-- NVIDIA -->
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-[#76B900] grid place-items-center overflow-hidden p-[6px]">
+                  <img src="https://cdn.simpleicons.org/nvidia/white" alt="Nvidia" class="w-full h-full object-contain">
+                </div>
+                <div class="leading-none"><p class="text-[12px] font-medium">Nvidia</p><p class="text-[10px] mono text-[#9A9A98] mt-1">NVDA</p></div>
+              </div>
+              <div class="text-right"><p id="nvdaVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="nvdaValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div>
+            </div>
+            <!-- QQQ -->
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-[#DBEAFE] text-[#1D4ED8] grid place-items-center text-[10px] font-bold">QQQ</div>
+                <div class="leading-none"><p class="text-[12px] font-medium">Nasdaq 100</p><p class="text-[10px] mono text-[#9A9A98] mt-1">QQQ</p></div>
+              </div>
+              <div class="text-right"><p id="qqqVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="qqqValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div>
+            </div>
+            <!-- ORO -->
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]">
+              <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-[#FEF3C7] text-[#D97706] grid place-items-center text-[10px]">Au</div><div class="leading-none"><p class="text-[12px] font-medium">Oro</p><p class="text-[10px] mono text-[#9A9A98] mt-1">XAU/USD</p></div></div>
+              <div class="text-right"><p id="oroVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="oroValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div>
+            </div>
+            <!-- BTC -->
+            <div class="flex items-center justify-between p-3 rounded-[14px] bg-[#F6F6F5] border border-[#EDEDED]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-[#F7931A] grid place-items-center overflow-hidden p-[5px]">
+                  <img src="https://cdn.simpleicons.org/bitcoin/white" alt="BTC" class="w-full h-full object-contain">
+                </div>
+                <div class="leading-none"><p class="text-[12px] font-medium">Bitcoin</p><p class="text-[10px] mono text-[#9A9A98] mt-1">BTC</p></div>
+              </div>
+              <div class="text-right"><p id="btcVar" class="text-[11px] mono font-medium">—</p><p class="text-[12px] mono mt-1"><span id="btcValor" class="font-semibold">—</span></p><p class="text-[10px] mono text-[#9A9A98]">ÚLTIMO / VAR.%</p></div>
+            </div>
           </div>
           <div class="px-5 py-3 bg-stone border-t border-line flex items-center gap-2.5 shrink-0"><button onclick="event.stopPropagation(); cargarCotizaciones()" class="text-[11px] font-medium px-2.5 py-1 rounded-full bg-white border border-line hover:border-ink">Actualizar</button><p id="fxTime" class="text-[11px] mono text-[#9A9A98]">Cargando...</p></div>
         </div>
