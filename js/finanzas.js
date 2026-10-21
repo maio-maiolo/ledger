@@ -419,18 +419,22 @@ function mostrarModalCambioMes(nombreMes, cantUnicos){
         </div>
         <button onclick="cerrarModalCambioMes()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/15 text-white grid place-items-center">✕</button>
       </div>
-      <div class="p-5 space-y-3.5 text-[13.5px] leading-[1.55] text-[#3A3A39]">
+            <div class="p-5 space-y-3.5 text-[13.5px] leading-[1.55] text-[#3A3A39]">
+        <div class="w-full rounded-[12px] bg-ink text-white px-3.5 py-2.5 flex items-center gap-2">
+          <span class="text-[14px]">⚠️</span>
+          <p class="text-[11px] font-bold tracking-[0.14em] uppercase">Informacion Importante</p>
+        </div>
         <div class="flex gap-3 items-start bg-[#F6F6F5] border border-line rounded-[14px] p-3.5">
           <span class="text-[18px]">🛒</span>
-          <p>Se limpiaran los <b class="text-ink">${cantUnicos} gasto(s) unico(s)</b> del mes anterior. Tambien puedes limpiarlos manualmente desde el icono <b class="text-ink">🧹 Limpiar unicos</b>.</p>
+          <p>Ten en cuenta que cada nuevo mes se limpiaran los <b class="text-ink">${cantUnicos} gasto(s) unico(s)</b> del mes anterior. Tambien puedes limpiarlos manualmente desde el icono<b class="text-ink">🧹 Limpiar unicos</b>.</p>
         </div>
         <div class="flex gap-3 items-start bg-[#F6F6F5] border border-line rounded-[14px] p-3.5">
           <span class="text-[18px]">💵</span>
-          <p>Revisa tus <b class="text-ink">gastos fijos</b>: si cambiaron de valor, puedes modificarlos desde el icono <b class="text-ink">↗ modificar</b> en cada movimiento.</p>
+          <p>Revisa tus <b class="text-ink">gastos fijos</b>: si cambiaron de valor, puedes modificarlos desde el icono <b class="text-ink">↗ modificar</b> en movimiento.</p>
         </div>
         <div class="flex gap-3 items-start bg-[#F6F6F5] border border-line rounded-[14px] p-3.5">
           <span class="text-[18px]">💳</span>
-          <p>Revisa tus <b class="text-ink">gastos en cuotas</b>: puedes pagar la cuota desde el icono <b class="text-ink">✓ Pagar cuota</b>.</p>
+          <p>Revisa tus <b class="text-ink">gastos en cuotas</b>: Estos no se abonan automáticamente. Puedes pagar la cuota desde el icono <b class="text-ink">✓ Pagar cuota</b> en movimientos </p>
         </div>
         <button onclick="cerrarModalCambioMes()" class="w-full mt-1 py-3 rounded-[14px] bg-ink text-white text-[14px] font-semibold hover:bg-black transition-colors">Entendido</button>
       </div>
@@ -2199,22 +2203,6 @@ function abrirModalAgregarExtra(){
   const m = document.getElementById('extra-monto');
   if(d) d.value='';
   if(m) m.value='';
-  // FIX: aplicar formato $ con puntos automáticamente ($ 1.000.000)
-  try{
-    if(m && typeof aplicarFormatoMilesAInput==='function'){
-      // evitar duplicar listeners: clonar si ya tiene dataset
-      if(!m.dataset.formatoAplicado){
-        aplicarFormatoMilesAInput(m, true);
-        m.dataset.formatoAplicado='1';
-      }
-    }
-    // también intentar con el id legacy extraMonto
-    const m2 = document.getElementById('extraMonto');
-    if(m2 && typeof aplicarFormatoMilesAInput==='function' && !m2.dataset.formatoAplicado){
-      aplicarFormatoMilesAInput(m2, true);
-      m2.dataset.formatoAplicado='1';
-    }
-  }catch(e){}
   modal.classList.remove('hidden');
   setTimeout(()=>{ if(d) d.focus(); }, 50);
 }
